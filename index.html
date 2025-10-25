@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SMVEC Attendance Calculator</title>
+
+  <!-- ✅ Fixed stylesheet link -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <!-- Logo Section -->
+  <div class="img">
+    <img src="OIP.webp" alt="SMVEC Logo">
+  </div>
+
+  <!-- Title -->
+  <h1>SMVEC Attendance Calculator</h1>
+
+  <!-- Calculator Box -->
+  <div class="container">
+    <label>Total Classes Conducted:</label>
+    <input type="number" id="total" placeholder="Enter total classes">
+
+    <label>Classes Attended:</label>
+    <input type="number" id="attended" placeholder="Enter attended classes">
+
+    <label>Target Attendance (%):</label>
+    <input type="number" id="target" placeholder="Enter target percentage (e.g. 75)" value="75">
+
+    <button onclick="calculateAttendance()">Calculate</button>
+    <div class="output" id="result"></div>
+  </div>
+
+  <!-- Note Section -->
+  <div class="note">
+    <img src="pic - Copy.jpg" alt="Developer Picture">
+  </div><br><br><br><br><br><br><br><br><br><br><br>
+
+  <!-- Developer Text BELOW the note -->
+  <div class="text">
+    <h3>Hi, I’m <b>Balaji M</b> from SIMATS Engineering. <mark>I’m the web developer.</mark></h3>
+  </div>
+
+  <div class="logo">
+    <div class="icons" >
+       <a href="https://www.linkedin.com/in/balajimohan-undefined-819528389/overlay/about-this-profile/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BUcl7wytISB2lLI6ZXD1XHg%3D%3D"><i class="fa-brands fa-linkedin"></i></a><br>
+       <a href="https://github.com/balajimohan573-collab"><i class="fa-brands fa-github"></i></a><br>
+       <a href="https://www.instagram.com/___bxlx_xx___/?igsh=OHo5c2UxMGc1MTNw#"><i class="fa-brands fa-instagram"></i><p>Founder balaji m</p></a><br>
+       <a href="https://www.instagram.com/zx_.dhilxxp___?igsh=cmV0Ym5ybTJra2sw"><i class="fa-brands fa-instagram"></i><p>Co founder Dhileep</p></a><br>
+       
+       
+    </div>
+  </div>
+
+  <!-- Footer BELOW the text -->
+  <footer>Developed for SMVEC Students © 2025</footer>
+
+  <!-- Script -->
+  <script>
+    function calculateAttendance() {
+      const total = parseFloat(document.getElementById('total').value);
+      const attended = parseFloat(document.getElementById('attended').value);
+      const target = parseFloat(document.getElementById('target').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(total) || isNaN(attended) || total <= 0 || attended < 0 || attended > total) {
+        resultDiv.innerHTML = '<span class="danger">⚠️ Please enter valid numbers!</span>';
+        return;
+      }
+
+      const percentage = (attended / total) * 100;
+      let message = `<p>📊 <b>Current Attendance:</b> ${percentage.toFixed(2)}%</p>`;
+
+      if (percentage >= target) {
+        const canMiss = Math.floor((attended - (target / 100) * total) / (target / 100));
+        message += `<p class="safe">✅ You are safe! You can miss <b>${canMiss}</b> more classes.</p>`;
+      } else {
+        const needToAttend = Math.ceil(((target / 100) * total - attended) / (1 - target / 100));
+        message += `<p class="warning">⚠️ You need to attend the next <b>${needToAttend}</b> classes to reach ${target}%.</p>`;
+      }
+
+      resultDiv.innerHTML = message;
+    }
+  </script>
+</body>
+</html>
